@@ -16,25 +16,20 @@
  * The full GNU General Public License is included in this distribution in
  * the file called "COPYING".
  */
-#define pr_fmt(fmt)	KBUILD_MODNAME ":%s: " fmt, __func__
-
 #include "xdma_cdev.h"
- 
-#define write_register(v, mem, off) iowrite32(v, mem)
-
 
 /*Use 64-bit IO if available, otherwise 32 bit*/
 #ifdef CONFIG_64BIT
 typedef u64 iotype;
 #define write_func(val, addr) writeq(val, addr)
 #define read_func(addr) readq(addr)
-#define USING64 true
+#define USING64 "yes"
 
 #else
 typedef u32 iotype;
 #define write_func(val, addr) iowrite32(val, addr)
 #define read_func(addr) ioread32(addr)
-#define USING64 false
+#define USING64 "no"
 #endif
 
 
@@ -44,7 +39,7 @@ static ssize_t char_bypass_read(struct file *filp, char __user *buf,
 {
 	struct xdma_dev *xdev;
 	struct xdma_cdev *xcdev = (struct xdma_cdev *)filp->private_data;
-	int rc = 0;
+	ssize_t rc = 0;
 	iotype __iomem *ep_addr;
 	iotype __user *user_buf;
 	u8 __iomem *ep_addr_8;
@@ -64,8 +59,8 @@ static ssize_t char_bypass_read(struct file *filp, char __user *buf,
 	/*check for multiple of datapth?*/
 	ep_addr=xdev->bar[xcdev->bar] +*pos;
 	user_buf= (iotype *)buf;
-	dbg_fops("buf: %px,  bypass BAR: %p, pos: %llx (%lld), ep_addr: %p, count %zu, 64 bit IO: %s\n", 
-			buf, xdev->bar[xcdev->bar], *pos, *pos, ep_addr, count, USING64? "true" : "false");
+	dbg_fops("buf: %px,  bypass BAR: %p, pos: %llx (%lld), ep_addr: %p, count %zu, uses 64 bit IO: %s\n", 
+			buf, xdev->bar[xcdev->bar], *pos, *pos, ep_addr, count, USING64);
 	/*Get data in largest chunks possible first (8 or 4 bytes)*/
 	for (i=count/sizeof(iotype);i; --i,  ++user_buf, ++ep_addr)
 	{	
@@ -100,8 +95,7 @@ static ssize_t char_bypass_write(struct file *filp, const char __user *buf,
 	iotype __user *user_buf;
 	u8 __iomem *ep_addr_8;
 	size_t i;
-
-	int rc = 0;
+	ssize_t rc = 0;
 	
 	rc = xcdev_check(__func__, xcdev, false);
 	if (unlikely(rc < 0))
@@ -116,8 +110,8 @@ static ssize_t char_bypass_write(struct file *filp, const char __user *buf,
 	
 	ep_addr=xdev->bar[xcdev->bar] +*pos;
 	user_buf= (iotype *)buf;
-	dbg_fops("buf: %px,  bypass BAR: %p, pos: %llx (%lld), ep_addr: %p, count %zu, 64 bit IO: %s\n", 
-			buf, xdev->bar[xcdev->bar], *pos, *pos, ep_addr, count, USING64? "true" : "false");	
+	dbg_fops("buf: %px,  bypass BAR: %p, pos: %llx (%lld), ep_addr: %p, count %zu, uses 64 bit IO: %s\n", 
+			buf, xdev->bar[xcdev->bar], *pos, *pos, ep_addr, count, USING64);	
 	
 	for (i=count/sizeof(iotype);i; --i,  ++user_buf, ++ep_addr)
 	{
@@ -137,7 +131,7 @@ static ssize_t char_bypass_write(struct file *filp, const char __user *buf,
 		rc=__get_user(val, buf);
 		if(unlikely(rc<0))
 			return rc;
-		write_func(val, ep_addr_8);
+		iowrite8(val, ep_addr_8);
  	}
 	*pos+=count;
 	return count;
