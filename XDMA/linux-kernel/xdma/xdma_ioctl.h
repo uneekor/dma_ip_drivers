@@ -111,12 +111,12 @@ Typically up to 64 MB and must be multiple of datapath width.*/
 enum xdma_transfer_mode
 {XDMA_H2C, XDMA_C2H };
 /*Structure for submitting the transfer request
-(XDMA_IOCTL_SUBMIT_TRANSFER ioctl operation */
+(XDMA_IOCTL_SUBMIT_TRANSFER ioctl operation) */
 struct xdma_transfer_request {
 /*Pointer to buffer in user space*/
 	const char *buf;
 /*Size of the buffer == Length of the transfer
-After the transfer it holds minimal amount of 
+After the transfer it holds actual amount of 
 transmitted data*/ 
 	size_t length;
 /*AXI address from which or to which transfer the data.
