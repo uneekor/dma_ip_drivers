@@ -1599,8 +1599,8 @@ static int xdma_validate_transfer(const struct xdma_engine *engine)
 {	
 	int rv=0;
 	const struct xdma_transfer_params *transfer_params=&(engine->transfer_params);
-	const u64 addr_align_mask= ((u64) engine->addr_align)-1;
-	const u64 granularity_mask= ((u64) engine->len_granularity)-1;
+	const uintptr_t addr_align_mask= ((uintptr_t) engine->addr_align)-1;
+	const uintptr_t granularity_mask= ((uintptr_t) engine->len_granularity)-1;
 	dbg_fops("Transfer request on engine %s: buf 0x%px, length %zu, AXI address 0x%llx, direction %s\n",
 		engine->name, transfer_params->buf, transfer_params->length, transfer_params->ep_addr, 
 		direction_to_string(transfer_params->dir));
