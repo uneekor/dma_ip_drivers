@@ -300,7 +300,12 @@ static int char_sgdma_open(struct inode *inode, struct file *filp)
 	
 	if (engine->streaming)
 	{	/*mark dev file as streaming device*/
+	#if LINUX_VERSION_CHECK(5, 1, 0)
 		stream_open(inode, filp);
+	#else
+		nonseekable_open(inode, filp);
+		filp->f_mode &= ~FMODE_ATOMIC_POS;
+	#endif
 		engine->eop_flush=(filp->f_flags& O_TRUNC)? 1: 0;
 		
 			
