@@ -94,9 +94,8 @@ descriptors and if so it waits a further period, to give a transfer chance to co
 - Default timeout is reduced to 5 ms.
 
 ### Where can programming guides and examples be found?
-Check the 
-[XDMA Communication tutorial](https://github.com/mwrnd/notes/tree/main/XDMA_Communication)
-by mwrnd. For the most part it applies to this version of the driver as well.
+Look at the detailed 
+[XDMA programming tutorial](https://github.com/Prandr/XDMA_Tutorial/blob/main/README.md).
 ## What about the in-tree XDMA driver?
 The in-tree driver seem not to have device file interface and is available only since
 version 6.3, while we needed the driver for an earlier version. There is some
