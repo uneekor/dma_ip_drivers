@@ -1,3 +1,10 @@
+<!--
+Copyright (c) 2025-present,  Helmholtz-Zentrum Berlin
+All rights reserved.
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation.
+-->
 ## Why was this driver created and how is it different?
 The mainline Xilinx DMA driver creates descriptors strictly on the boundaries of a page,
 thus limiting them to only 4096 bytes. This way it makes very inefficient use of them.

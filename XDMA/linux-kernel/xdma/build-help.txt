@@ -1,3 +1,9 @@
+ # Copyright (c) 2025-present,  Helmholtz-Zentrum Berlin
+ # All rights reserved.
+ # Permission is granted to copy, distribute and/or modify this text
+ # under the terms of the GNU Free Documentation License, Version 1.3 or
+ # any later version published by the Free Software Foundation.
+
 XDMA driver build options for make use following naming convention:
 Compile-only options are all capitalised (like a define would be), while 
 options that are also availible as module options (that can be passed to

@@ -1,3 +1,11 @@
+<!--
+Copyright (c) 2025-present,  Helmholtz-Zentrum Berlin
+All rights reserved.
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation.
+-->
+
 Host bypass BAR may be useful for small transfers that require low and stable latency.
 However, exact detail may vary between CPU architectures and read and write operation.
 For illustration here is transfer write and read of 1024 bytes on bypass BAR on x86-64 
