@@ -61,7 +61,7 @@ static ssize_t char_sgdma_read_write(struct file *filp, const char __user *buf,
 	engine->transfer_params.length=count;
 	if(!engine->streaming)
 		engine->transfer_params.ep_addr=*pos;
-#ifdef ___LIBXDMA_DEBUG__
+#ifdef __LIBXDMA_DEBUG__
 	/*doesn't really matter in this case. setup is performed according engine direction*/
 	engine->transfer_params.dir=engine->dir;
 #endif
