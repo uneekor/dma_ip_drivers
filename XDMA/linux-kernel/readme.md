@@ -57,7 +57,9 @@ See [bypass BAR](./docs/bypass_bar.md) for more detailed information. It is fast
 
 - Many build options availible. It is highly recommended to refer to 
 [build help](./xdma/build-help.txt) or  to run `make help` for available configuration 
-options. There is a good chance that you find something useful.
+options. There is a good chance that you find something useful. In particular, it may be
+necessary to set the PCI-E IDs recognized by the driver. The default Device ID is 0x8034,
+which is preset for UltraScale FPGAs.
 
 - Descriptor bypass is NOT supported and won't be until solutions for following obstacles 
 are devised:
