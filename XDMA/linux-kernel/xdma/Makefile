@@ -108,7 +108,7 @@ uninstall:
 	@$(DEPMOD) -a || true
 	@/bin/rm -f /usr/local/include/xdma_ioctl.h
 help:
-	@cat build-help.txt
+	@tail -n +7 build-help.txt
 
 
 
