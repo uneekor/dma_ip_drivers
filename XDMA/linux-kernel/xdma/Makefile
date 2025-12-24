@@ -18,14 +18,14 @@ $(warning XVC_FLAGS: $(XVC_FLAGS).)
 
 topdir := $(shell cd $(src)/.. && pwd)
 
-TARGET_MODULE:=xdma
+TARGET_MODULE:=xdma-chr
 
-EXTRA_CFLAGS := -I$(topdir)/include $(XVC_FLAGS)
+ccflags-y := -I$(topdir)/include $(XVC_FLAGS)
 ifeq ($(DEBUG),1)
-	EXTRA_CFLAGS += -D__LIBXDMA_DEBUG__
+	ccflags-y += -D__LIBXDMA_DEBUG__
 endif
 ifneq ($(config_bar_num),)
-	EXTRA_CFLAGS += -DXDMA_CONFIG_BAR_NUM=$(config_bar_num)
+	ccflags-y += -DXDMA_CONFIG_BAR_NUM=$(config_bar_num)
 endif
 #EXTRA_CFLAGS += -DINTERNAL_TESTING
 
